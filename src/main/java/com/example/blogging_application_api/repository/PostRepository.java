@@ -16,5 +16,5 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     List<Post> findByCategory(Category category);
     List<Post> findAllByCategory(Category category);
     Page<Post> findByCategory(Category category, Pageable pageable);
-
+    List<Post> findByTitleContaining(String title);
 }

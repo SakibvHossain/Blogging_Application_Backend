@@ -44,6 +44,7 @@ public class PostController {
      */
 
     // Note: Always remember never name an entity field using underscore because I saw problem while sorting...
+    //http://localhost:9090/api/post/all?pageNumber=1&pageSize=3
     @GetMapping("post/all")
     public ApiResponse<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
@@ -70,4 +71,8 @@ public class PostController {
         return new ApiResponse<>(HttpStatus.OK,"Post Updated", postService.updatePost(postDTO,postId));
     }
 
+    @GetMapping("/post/search/{keyword}")
+    public ApiResponse<List<PostDTO>> searchByTitle(@PathVariable String keyword){
+        return new ApiResponse<>(HttpStatus.OK,"Post fetched successfully", postService.searchPosts(keyword));
+    }
 }
