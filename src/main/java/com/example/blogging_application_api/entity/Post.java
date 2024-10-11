@@ -17,7 +17,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Integer post_id;
+    private Integer postId;
     @NotEmpty(message = "Title can not be empty")
     @Size(min = 4, max = 50, message = "Title can be min of 4 and max 50 character")
     @Column(name = "post_title")

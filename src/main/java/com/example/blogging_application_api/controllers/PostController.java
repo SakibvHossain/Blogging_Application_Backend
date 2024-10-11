@@ -42,13 +42,16 @@ public class PostController {
     the service method to ensure that the user-provided pageNumber (1-based) works
     with the zero-based logic of PageRequest.
      */
+
+    // Note: Always remember never name an entity field using underscore because I saw problem while sorting...
     @GetMapping("post/all")
     public ApiResponse<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy
     ) {
         // Subtract 1 from pageNumber for zero-based indexing
-        return new ApiResponse<>(HttpStatus.OK, "All Posts", postService.getAllPosts(pageNumber - 1, pageSize));
+        return new ApiResponse<>(HttpStatus.OK, "All Posts", postService.getAllPosts(pageNumber - 1, pageSize,sortBy));
     }
 
     @GetMapping("post/id/{postId}")
