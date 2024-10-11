@@ -1,4 +1,4 @@
-package com.example.blogging_application_api.payload;
+package com.example.blogging_application_api.payload.dtos;
 
 
 import lombok.Getter;
