@@ -1,5 +1,6 @@
 package com.example.blogging_application_api.controllers;
 
+import com.example.blogging_application_api.config.AppConstants;
 import com.example.blogging_application_api.payload.ApiResponse;
 import com.example.blogging_application_api.payload.PostResponse;
 import com.example.blogging_application_api.payload.dtos.PostDTO;
@@ -26,8 +27,8 @@ public class PostController {
     @GetMapping("postBy/category/{categoryId}")
     public ApiResponse<PostResponse> getAllPostsByCategoryId(
             @PathVariable Integer categoryId,
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize
     ){
         return new ApiResponse<>(HttpStatus.OK,"All Posts by Category", postService.getPostsByCategory(categoryId,pageNumber - 1,pageSize));
     }
@@ -47,9 +48,9 @@ public class PostController {
     //http://localhost:9090/api/post/all?pageNumber=1&pageSize=3
     @GetMapping("post/all")
     public ApiResponse<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_VALUE, required = false) String sortBy
     ) {
         // Subtract 1 from pageNumber for zero-based indexing
         return new ApiResponse<>(HttpStatus.OK, "All Posts", postService.getAllPosts(pageNumber - 1, pageSize,sortBy));
