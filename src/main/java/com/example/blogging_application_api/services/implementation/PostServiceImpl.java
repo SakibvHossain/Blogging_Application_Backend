@@ -5,6 +5,7 @@ import com.example.blogging_application_api.entity.Post;
 import com.example.blogging_application_api.entity.User;
 import com.example.blogging_application_api.exception.CategoryNotFoundException;
 import com.example.blogging_application_api.exception.ResourceNotFoundException;
+import com.example.blogging_application_api.payload.PostResponse;
 import com.example.blogging_application_api.payload.dtos.PostDTO;
 import com.example.blogging_application_api.repository.CategoryRepository;
 import com.example.blogging_application_api.repository.PostRepository;
@@ -104,12 +105,16 @@ public class PostServiceImpl implements PostService {
      * @return PostDTO
      */
     @Override
-    public List<PostDTO> getAllPosts(Integer pageNumber, Integer pageSize) {
+    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
         // Ensure pageNumber is not negative
         Pageable pageable = PageRequest.of(Math.max(pageNumber, 0), pageSize);
         Page<Post> pageOfPosts = postRepository.findAll(pageable);
         List<Post> postList = pageOfPosts.getContent();
-        return postList.stream().map(this::postToPostDTO).toList();
+
+        PostResponse postResponse = new PostResponse();
+
+        List<PostDTO> postDTO = postList.stream().map(this::postToPostDTO).toList();
+        return getPostResponse(pageOfPosts, postDTO, postResponse);
     }
 
     /**
@@ -117,13 +122,30 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public List<PostDTO> getPostsByCategory(Integer categoryId) {
+    public PostResponse getPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize) {
         Category getCategoryById = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new CategoryNotFoundException(categoryId)
         );
 
-        List<Post> postList = postRepository.findAllByCategory(getCategoryById);
-        return postList.stream().map(this::postToPostDTO).toList();
+        Pageable pageable = PageRequest.of(Math.max(pageNumber, 0), pageSize);
+        Page<Post> pageOfPosts = postRepository.findByCategory(getCategoryById,pageable);
+        List<Post> postList = pageOfPosts.getContent();
+        List<PostDTO> postDTOList =  postList.stream().map(this::postToPostDTO).toList();
+
+        PostResponse postResponse = new PostResponse();
+
+        return getPostResponse(pageOfPosts, postDTOList, postResponse);
+    }
+
+    private PostResponse getPostResponse(Page<Post> pageOfPosts, List<PostDTO> postDTOList, PostResponse postResponse) {
+        postResponse.setContent(postDTOList);
+        postResponse.setPageNumber(pageOfPosts.getNumber());
+        postResponse.setPageSize(pageOfPosts.getSize());
+        postResponse.setTotalElements(pageOfPosts.getTotalElements());
+        postResponse.setTotalPages(pageOfPosts.getTotalPages());
+        postResponse.setLastPage(pageOfPosts.isLast());
+
+        return postResponse;
     }
 
     /**

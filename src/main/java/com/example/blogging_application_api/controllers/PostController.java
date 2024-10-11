@@ -1,6 +1,7 @@
 package com.example.blogging_application_api.controllers;
 
 import com.example.blogging_application_api.payload.ApiResponse;
+import com.example.blogging_application_api.payload.PostResponse;
 import com.example.blogging_application_api.payload.dtos.PostDTO;
 import com.example.blogging_application_api.services.PostService;
 import jakarta.validation.Valid;
@@ -23,8 +24,12 @@ public class PostController {
     }
 
     @GetMapping("postBy/category/{categoryId}")
-    public ApiResponse<List<PostDTO>> getAllPostsByCategoryId(@PathVariable Integer categoryId){
-        return new ApiResponse<>(HttpStatus.OK,"All Posts by Category", postService.getPostsByCategory(categoryId));
+    public ApiResponse<PostResponse> getAllPostsByCategoryId(
+            @PathVariable Integer categoryId,
+            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
+    ){
+        return new ApiResponse<>(HttpStatus.OK,"All Posts by Category", postService.getPostsByCategory(categoryId,pageNumber - 1,pageSize));
     }
 
     @GetMapping("postBy/author/{userId}")
@@ -38,7 +43,7 @@ public class PostController {
     with the zero-based logic of PageRequest.
      */
     @GetMapping("post/all")
-    public ApiResponse<List<PostDTO>> getAllPosts(
+    public ApiResponse<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "3", required = false) Integer pageSize
     ) {

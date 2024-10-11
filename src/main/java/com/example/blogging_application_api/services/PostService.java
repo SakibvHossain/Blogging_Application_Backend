@@ -1,6 +1,7 @@
 package com.example.blogging_application_api.services;
 
 import com.example.blogging_application_api.entity.Post;
+import com.example.blogging_application_api.payload.PostResponse;
 import com.example.blogging_application_api.payload.dtos.PostDTO;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public interface PostService {
     PostDTO getPostById(Integer postId);
     //Get All
     //Implementing pagination and sorting
-    List<PostDTO> getAllPosts(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
     //Get all post by Category
-    List<PostDTO> getPostsByCategory(Integer categoryId);
+    PostResponse getPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize);
     //Get all post by User
     List<PostDTO> getPostsByUser(Integer userId);
     //Search posts
