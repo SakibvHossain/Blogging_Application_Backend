@@ -86,6 +86,13 @@ A comprehensive Blog REST API built with Spring Boot that allows users to create
 *  `POST /api/auth/login`: Authenticate and receive JWT
 *  `POST /api/auth/register`: Register a new user
 
+### User
+*  `GET /api/users/all`: Get all users (Admin user only)
+*  `PUT /api/users/updateUser/{id}`: Update user (authenticated user only)
+*  `DELETE /api/users/deleteUser/{id}`: Delete user (Admin user or authenticated user only)
+*  `GET /api/users/{id}`: Get specific User (Admin user only)
+*  `PATCH /api/users/update/specific/{id}`: Update specific field (Admin or authenticated user only)
+
 ### Posts
 *  `GET /api/post/all?pageNumber=1&pageSize=3`: Get all posts (with pagination, sorting, and searching)
 *  `POST /api/user/{userID}/category/{categoryID}`: Create a new post (authenticated users only)
