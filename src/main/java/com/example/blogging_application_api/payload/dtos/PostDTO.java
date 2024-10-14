@@ -1,6 +1,7 @@
 package com.example.blogging_application_api.payload.dtos;
 
 import com.example.blogging_application_api.entity.Category;
+import com.example.blogging_application_api.entity.Comments;
 import com.example.blogging_application_api.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,4 +28,5 @@ public class PostDTO {
 
     private CategoryDTO category;
     private UserDTO author;
+    private Set<CommentDTO> comments = new HashSet<>();
 }

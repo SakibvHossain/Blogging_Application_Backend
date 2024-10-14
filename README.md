@@ -112,8 +112,8 @@ A comprehensive Blog REST API built with Spring Boot that allows users to create
 *  `GET /api/category/byId/{id}`: Get categories by ID (authenticated users only)
 
 ### Comments
-*  `POST /api/posts/{postId}/comments`: Add a comment to a post
-*  `GET /api/posts/{postId}/comments`: Get all comments for a post
+*  `POST /api/comment/add/post/{id}`: Add a comment to a post (authenticated users only)
+*  `DELETE /api/comment/delete/{id}`: Delete post specific post (authenticated users only)
 
 ### Contributing
 Feel free to fork this repository, create a new branch, and submit a pull request. All contributions are welcome!
