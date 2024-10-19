@@ -117,3 +117,37 @@ A comprehensive Blog REST API built with Spring Boot that allows users to create
 
 ### Contributing
 Feel free to fork this repository, create a new branch, and submit a pull request. All contributions are welcome!
+
+## Design Pattern used (SOC, DRY, KISS, SOLID)
+
+### 1. SOC:
+The project is done by following Multi-tier Architecture (such as separating concerns into layers like Controller, Service, and Repository), the main design principle I'm following is Separation of Concerns (SoC).
+
+**Separation of Concerns (SoC)**:
+This is the primary principle you're following with multi-tier architecture. Each layer (Controller, Service, Repository) has its own responsibility:
+*  **Controller:** Handles incoming HTTP requests.
+*  **Service:** Contains business logic.
+*  **Repository/DAO:** Manages data persistence and interaction with the database.
+
+### 2. DRY:
+DRY principle aims to reduce duplication in code, ensuring that any piece of logic, data, or behavior is implemented in only one place. This makes code easier to maintain, less error-prone, and more scalable. 
+
+**UserServiceImpl.java** class not fully following DRY principle. Because I'm using ResourceNotFoundException multiple place where duplication occurs.
+
+**CategoryServiceImpl.java** class completely following DRY principle. Instead of repeating this logic in every method (e.g., getCategoryById, deleteCategory, updateCategory), I call this method to streamline the process and ensure consistency.
+
+### 3. KISS:
+The goal is to avoid over-engineering. The KISS principle (Keep It Simple, Stupid) is about focusing on simplicity, clarity, and efficiency, using only what is necessary to meet the requirements. The hole project follows the **KISS** principle. No over engineering uses on the project.
+
+### 4. SOLID: 
+This project not following all 5 of them but 2 of them are following such as:
+* **Following:**
+  * **SRP (Single Responsibility Principle)**: Each class has one responsibility.
+  * **LSP (Liskov Substitution Principle)**: Interfaces are implemented correctly.
+  * **ISP (Interface Segregation Principle)**: No unnecessary methods in interfaces.
+* **Partially Following:**
+  * **DIP (Dependency Inversion Principle)**: Good use of dependency injection, but could benefit from more abstraction in some areas.
+* **Not Fully Following:**
+  * **OCP (Open/Closed Principle)**: Modifying classes may be necessary for adding new features. Introducing extensions could improve this.
+
+**Note:** However, don’t force SOLID into every corner of your project, especially when simpler, more straightforward solutions suffice.
