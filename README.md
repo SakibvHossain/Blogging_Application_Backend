@@ -134,7 +134,7 @@ DRY principle aims to reduce duplication in code, ensuring that any piece of log
 
 **UserServiceImpl.java** class not fully following DRY principle. Because I'm using ResourceNotFoundException multiple place where duplication occurs.
 
-**CategoryServiceImpl.java** class completely following DRY principle. Instead of repeating this logic in every method (e.g., getCategoryById, deleteCategory, updateCategory), I call this method to streamline the process and ensure consistency.
+**CategoryServiceImpl.java** class completely following DRY principle. Instead of repeating this logic in every method (e.g., getCategoryById, deleteCategory, updateCategory), I call **findCategoryByIdOrThrow** method to streamline the process and ensure consistency.
 
 ### 3. KISS:
 The goal is to avoid over-engineering. The KISS principle (Keep It Simple, Stupid) is about focusing on simplicity, clarity, and efficiency, using only what is necessary to meet the requirements. The hole project follows the **KISS** principle. No over engineering uses on the project.
