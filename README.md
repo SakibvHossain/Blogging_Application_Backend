@@ -151,3 +151,39 @@ This project not following all 5 of them but 2 of them are following such as:
   * **OCP (Open/Closed Principle)**: Modifying classes may be necessary for adding new features. Introducing extensions could improve this.
 
 **Note:** However, don’t force SOLID into every corner of your project, especially when simpler, more straightforward solutions suffice.
+
+## Steps to Implement JWT over Spring Security
+1. Add dependency:
+   ```
+        <!-- Core API dependency -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
+        </dependency>
+
+        <!-- Implementation for runtime functionality -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JSON processing (optional, recommended for Claims) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+   ```
+2. Create class **JwtAuthenticationEntryPoint** implements **AuthenticationEntryPoint**: This class will be called when unauthorized user trying to access our APIs.
+3. Create class **JwtTokenHelper**: This class will contain lots of methods to perform operations over token like: 
+   * Generating Token
+   * Validating Token
+   * Token expired or not
+4. Create class **JwtAuthenticationFilter** extends **OnceRequestFilter**: This class will work like filter before reaching to API.
+5. Create class **JwtAuthResponse**: We will hold the token here.
+6. Configure JWT in Spring Security config: We will configure and tell when to start, where to go & where to take action.
+7. Create Login API to return token: If user authenticated we will generate token and return it.
