@@ -124,7 +124,7 @@ Feel free to fork this repository, create a new branch, and submit a pull reques
 The project is done by following Multi-tier Architecture (such as separating concerns into layers like Controller, Service, and Repository), the main design principle I'm following is Separation of Concerns (SoC).
 
 **Separation of Concerns (SoC)**:
-This is the primary principle you're following with multi-tier architecture. Each layer (Controller, Service, Repository) has its own responsibility:
+This is the primary principle I'm following with multi-tier architecture. Each layer (Controller, Service, Repository) has its own responsibility:
 *  **Controller:** Handles incoming HTTP requests.
 *  **Service:** Contains business logic.
 *  **Repository/DAO:** Manages data persistence and interaction with the database.
